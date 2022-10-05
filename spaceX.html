@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SpaceX</title>
+	<link rel="stylesheet" type="text/css" href="spaceX.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+</head>
+<body>
+	<div id="wrapper">
+		<h2>SpaceX Launch Programs</h2>
+		<div class="content">
+			<aside>
+				<ul>
+					<li><a href="" class="years">2006</a></li>
+					<li><a href="" class="years">2007</a></li>
+					<li><a href="" class="years">2008</a></li>
+					<li><a href="" class="years">2009</a></li>
+					<li><a href="" class="years">2010</a></li>
+					<li><a href="" class="years">2011</a></li>
+					<li><a href="" class="years">2012</a></li>
+					<li><a href="" class="years">2013</a></li>
+					<li><a href="" class="years">2014</a></li>
+					<li><a href="" class="years">2015</a></li>
+					<li><a href="" class="years">2016</a></li>
+					<li><a href="" class="years">2017</a></li>
+					<li><a href="" class="years">2018</a></li>
+					<li><a href="" class="years">2019</a></li>
+					<li><a href="" class="years">2020</a></li>
+				</ul>
+			</aside>
+			<div class="airCrafts"></div>
+		</div>
+		
+	</div>
+
+<script>	
+	
+	fetch('https://api.spaceXdata.com/v3/launches/')
+	.then((responseData) =>{return responseData.json()})
+		
+	.then((result) => {
+			showData(result)
+	})
+
+	let yearDatas=document.querySelectorAll(".years");
+	yearDatas.forEach((year) =>{
+		year.onclick = (e) => {
+			e.preventDefault();
+			fetch('https://api.spaceXdata.com/v3/launches/?launch_year='+e.target.innerHTML)
+			.then((responseData) =>{return responseData.json()})
+				
+			.then((result) => {
+					showData(result)
+			})
+		}
+	})
+
+	// yearDatas.onClick(() =>{
+	// 	yearDatas.preventDefault(); 
+	// })
+
+function showData(data){
+
+	document.querySelector(".airCrafts").innerHTML = '';
+
+	data.forEach((i) =>{
+		// console.log(i);
+
+		let Flights=document.createElement("div");
+		Flights.classList.add("flights");
+		let FlightPhoto=document.createElement("img");
+		FlightPhoto.classList.add("flightPhoto");
+		console.log(Flights);
+		Flights.appendChild(FlightPhoto);
+
+		let FlightName=document.createElement("h3");
+		FlightName.classList.add("flightName");
+		Flights.appendChild(FlightName);
+
+		let FlightYear=document.createElement("h3");
+		FlightYear.classList.add("flightYear");
+		Flights.appendChild(FlightYear);
+
+		let FlightStatus=document.createElement("h3");
+		FlightStatus.classList.add("flightStatus");
+		Flights.appendChild(FlightStatus);
+
+		FlightPhoto.src=i.links.mission_patch_small;
+		FlightName.innerHTML=i.mission_name;
+		FlightYear.innerHTML=i.launch_year;
+		FlightStatus.innerHTML=i.launch_success;
+
+
+		document.querySelector(".airCrafts").appendChild(Flights);
+
+
+	})
+}
+
+// ASSIGNMENT:
+// Ternary Operator
+// Function as a variable
+// Writing function shorthand
+// Optional Chaining
+// Closures
+
+
+// function square(num){
+// 	return num*num;
+// }
+
+// const square = (num) => {
+// 	return num * num;
+// }
+
+
+//FUNCTION SHORTHAND
+
+// const square = num => num * num;
+
+// console.log(square(16));
+
+
+
+// let answer = '';
+// if(10 > 5){
+// 	 answer = "10 is greater";
+// }
+// else{
+// 	 answer = "10 is smaller";
+// }
+
+
+
+// let answer = (10 > 5) ? "10 is greater" : "10 is smaller";
+
+
+// console.log(answer)
+
+
+
+
+
+</script>
+</body>
+</html>
